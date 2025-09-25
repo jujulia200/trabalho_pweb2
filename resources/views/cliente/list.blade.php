@@ -1,12 +1,12 @@
 @extends('base')
-@section('titulo','Formulario aluno')
+@section('titulo','Formulario cliente')
 @section('conteudo')
 
-<h3> Listagem de Alunos</h3>
+<h3> Listagem de clientes</h3>
 
      <div class="row">
         <div class="col">
-            <from action="{{ route('aluno.search')}}" method="post">
+            <from action="{{ route('cliente.search')}}" method="post">
                 <div class="row">
                 <div class="col-md-3">
                     <label for="">Tipo</label>
@@ -27,7 +27,7 @@
 
 
               <div class="col">
-            <a href="{{url('/aluno/create')}}">Novo</a>"
+            <a href="{{url('/cliente/create')}}">Novo</a>"
         </div>
      </div>
 
@@ -53,8 +53,8 @@
              <td>{{$item->telefone}}</td>
              <td>editar</td>
              <td>
-                <a href="{{ route('aluno.edit', $item->id) }}"class="btn btn-outline-warnir"
-                 action="{{route('aluno.destroy',$item->)}}"method="post">
+                <a href="{{ route('cliente.edit', $item->id) }}"class="btn btn-outline-warnir"
+                 action="{{route('cliente.destroy',$item->)}}"method="post">
                     @csrf
                     @method('DELETE')
                     <button type="submit"class="btn btn-sm btn-outline-danger"

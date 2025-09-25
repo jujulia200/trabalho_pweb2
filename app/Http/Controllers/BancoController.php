@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cliente;
+use App\Models\Banco;
 use Illuminate\Http\Request;
 
-class ClienteController extends Controller
+class BancoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $dados = Cliente::All();
+        $dados = Banco::All();
 
         return view('cliente.list', ['dados' => $dados]);
     }
@@ -22,24 +22,10 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        return view('cliente.form');
+        //
     }
 
-    private function validateRequest(Request $request)
-    {
-        $request->validate([
-            'nome' => 'required',
-            'cpf' => 'required',
-            'telefone' => 'required',
-            'renda' => 'required',
 
-        ], [
-            'nome.required' => 'O :attribute é obrigatório',
-            'cpf.required' => 'O :attribute é obrigatório',
-            'telefone.required' => 'O :atribute é obrigatório',
-            'renda.required' => 'O :atribute é obrigatório',
-        ]);
-    }
     /**
      * Store a newly created resource in storage.
      */
@@ -48,15 +34,15 @@ class ClienteController extends Controller
         $this->validateRequest($request);
         $data = $request->all();
 
-        Cliente::create($data);
+        Banco::create($data);
 
-        return redirect('cliente');
+        return redirect('banco');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Cliente $cliente)
+    public function show(Banco $banco)
     {
         //
     }
@@ -64,9 +50,10 @@ class ClienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Cliente $cliente)
+    public function edit(Banco $banco)
     {
-        $dado = Cliente::findOrFail($id);
+        $dado = Banco::findOrFail($id);
+
         return view( 'cliente.form',
             [
                 'dado' => $dado,
@@ -77,12 +64,12 @@ class ClienteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request, Banco $banco)
     {
         $this->validateRequest($request);
         $data = $request->all();
 
-        Cliente::updateOrCreate(['id' => $id], $data);
+        Banco::updateOrCreate(['id' => $id], $data);
 
         return redirect('cliente');
     }
@@ -90,9 +77,9 @@ class ClienteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cliente $cliente)
+    public function destroy(Banco $banco)
     {
-        $dado = Cliente::findOrFail($id);
+        $dado = Banco::findOrFail($id);
 
         $dado->delete();
 
@@ -102,13 +89,13 @@ class ClienteController extends Controller
     public function search(Request $request)
     {
         if (!empty($request->valor)) {
-            $dados = Cliente::where(
+            $dados = Banco::where(
                 $request->tipo,
                 'like',
                 "%$request->valor%"
             )->get();
         } else {
-            $dados = Cliente::All();
+            $dados = Banco::All();
         }
 
         return view('cliente.list', ["dados" => $dados]);

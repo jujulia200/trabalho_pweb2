@@ -1,17 +1,17 @@
 @extends('base')
-@section('titulo','Formulario aluno')
+@section('titulo','Formulario cliente')
 @section('conteudo')
 
        @php
           if (!empty($dado->if)){
-            $action = route('aluno.update',$dado->id);
+            $action = route('cliente.update',$dado->id);
           }else{
-            $action = route('aluno.store');
+            $action = route('cliente.store');
           }
           @endphp
 
       <form action="{{$action}}" method="post">
-        <form action="{{route('aluno.store')}}" method="post">
+        <form action="{{route('cliente.store')}}" method="post">
         @csrf
 
          @if(!empty($dado->id))
@@ -41,7 +41,7 @@
          <div class="row">
             <div class="col">
                 <button type="submit" class="btn btn-success">{{ !empty($dado->id) ? ' Atualizar' : ' Salvar '}}</button>
-                <a href="{{url('aluno')}}"class="btn btn-primary">voltar</a>
+                <a href="{{url('cliente')}}"class="btn btn-primary">voltar</a>
             </div>
         </div>
     </form>

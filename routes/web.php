@@ -18,8 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/cliente', [clienteController::class,'index'])->name('cliente.index');
-Route::get('/cliente/create', [clienteController::class,'create'])->name('cliente.create');
-Route::get('/cliente', [clienteController::class,'store'])->name('cliente.store');
+Route::get('/cliente/store', [clienteController::class,'store'])->name('cliente.store');
 Route::post('/cliente/search',[clienteController::class, 'search'])->name('cliente.search');
 Route::get('/cliente/create', [ClienteController::class,'create'])->name('cliente.create');
 

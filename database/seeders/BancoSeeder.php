@@ -2,15 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Aluno;
+use App\Models\Banco;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AlunoSeeder extends Seeder
+class BancoSeeder extends Seeder
 {
-
+    /**
+     * Run the database seeds.
+     */
     public function run(): void
     {
-       Aluno::factory()->count(3)->create();
+        Banco::factory()->count(3)->create();
     }
 }
