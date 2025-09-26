@@ -17,7 +17,9 @@ class BancoFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+        'depositar'=>$this->numerify('###########'),
+        'transferir'=>$this->faker->numerify('###########'),
+        'sacar'=>$this->faker->numerify('###########'),
         ];
     }
 }
