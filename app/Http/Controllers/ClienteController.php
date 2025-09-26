@@ -66,12 +66,7 @@ class ClienteController extends Controller
      */
     public function edit(Cliente $cliente)
     {
-        $dado = Cliente::findOrFail($id);
-        return view( 'cliente.form',
-            [
-                'dado' => $dado,
-            ]
-        );
+
     }
 
     /**
@@ -79,12 +74,7 @@ class ClienteController extends Controller
      */
     public function update(Request $request, Cliente $cliente)
     {
-        $this->validateRequest($request);
-        $data = $request->all();
 
-        Cliente::updateOrCreate(['id' => $id], $data);
-
-        return redirect('cliente');
     }
 
     /**
@@ -92,11 +82,7 @@ class ClienteController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
-        $dado = Cliente::findOrFail($id);
-
-        $dado->delete();
-
-        return redirect('cliente');
+       
     }
 
     public function search(Request $request)
