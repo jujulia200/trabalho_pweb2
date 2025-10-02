@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 class ClienteController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
+
+    função vai listar todos os clientes e passar os dados para a blender list
+     **/
     public function index()
     {
         $dados = Cliente::All();
@@ -18,13 +19,14 @@ class ClienteController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+    função chama o formulario cliente
      */
     public function create()
     {
         return view('cliente.form');
     }
 
+    /** função valida as informações e verifica se há erros */
     private function validateRequest(Request $request)
     {
         $request->validate([
@@ -41,7 +43,7 @@ class ClienteController extends Controller
         ]);
     }
     /**
-     * Store a newly created resource in storage.
+    função que armezana as informações do formulario cliente
      */
     public function store(Request $request)
     {
@@ -62,29 +64,50 @@ class ClienteController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     função edita e recebe o id, carrega os dados do cliente e passa os dados para o formulario
      */
-    public function edit(Cliente $cliente)
+    public function edit($id)
     {
+        // dd($dado);
+        $dado = Cliente::findOrFail($id);
 
+        return view(
+            'cliente.form',
+            [
+                'dado' => $dado,
+            ]
+        );
     }
 
     /**
-     * Update the specified resource in storage.
+     função que valida e atualiza os dados do formulario
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request, $id)
     {
+        //dd($request->all());
+        $this->validateRequest($request);
+        $data = $request->all();
 
+        Cliente::updateOrCreate(['id' => $id], $data);
+
+        return redirect('cliente');
     }
 
     /**
-     * Remove the specified resource from storage.
+     função que destroi os dados do formulario
      */
-    public function destroy(Cliente $cliente)
+    public function destroy($id)
     {
-       
+        $dado = Cliente::findOrFail($id);
+
+        $dado->delete();
+
+        return redirect('cliente');
     }
 
+    /**
+    função que pesquisa os dados de um formulario
+     */
     public function search(Request $request)
     {
         if (!empty($request->valor)) {
