@@ -43,14 +43,12 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <td>Imagem</td>
                     <td>#ID</td>
                     <td>Nome</td>
                     <td>CPF</td>
                     <td>Telefone</td>
-                    <td>Categoria</td>
-                    <td>Ação</td>
-                    <td>Ação</td>
+                    <td>Editar</td>
+                    <td>Excluir</td>
                 </tr>
             </thead>
             <tbody>

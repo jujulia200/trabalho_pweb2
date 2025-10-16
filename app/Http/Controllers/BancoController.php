@@ -42,14 +42,7 @@ class BancoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Banco $banco)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Banco $banco)
     {
         $dado = Banco::findOrFail($id);

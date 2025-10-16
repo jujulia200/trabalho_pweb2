@@ -9,17 +9,17 @@ class ClienteController extends Controller
 {
     /**
 
-    função vai listar todos os clientes e passar os dados para a blender list
-     **/
+   * função vai listar todos os clientes e passar os dados para a blender list
+      **/
     public function index()
-    {
+     {
         $dados = Cliente::All();
 
         return view('cliente.list', ['dados' => $dados]);
     }
 
     /**
-    função chama o formulario cliente
+    *função chama o formulario cliente
      */
     public function create()
     {
@@ -43,7 +43,7 @@ class ClienteController extends Controller
         ]);
     }
     /**
-    função que armezana as informações do formulario cliente
+    *função que armezana as informações do formulario cliente
      */
     public function store(Request $request)
     {
@@ -64,7 +64,7 @@ class ClienteController extends Controller
     }
 
     /**
-     função edita e recebe o id, carrega os dados do cliente e passa os dados para o formulario
+   *  função edita e recebe o id, carrega os dados do cliente e passa os dados para o formulario
      */
     public function edit($id)
     {
@@ -80,7 +80,7 @@ class ClienteController extends Controller
     }
 
     /**
-     função que valida e atualiza os dados do formulario
+     *função que valida e atualiza os dados do formulario
      */
     public function update(Request $request, $id)
     {
@@ -94,7 +94,7 @@ class ClienteController extends Controller
     }
 
     /**
-     função que destroi os dados do formulario
+     *função que destroi os dados do formulario
      */
     public function destroy($id)
     {
@@ -106,7 +106,7 @@ class ClienteController extends Controller
     }
 
     /**
-    função que pesquisa os dados de um formulario
+   * função que pesquisa os dados de um formulario
      */
     public function search(Request $request)
     {
