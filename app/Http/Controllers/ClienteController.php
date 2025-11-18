@@ -8,118 +8,106 @@ use Illuminate\Http\Request;
 class ClienteController extends Controller
 {
     /**
-
-   * função vai listar todos os clientes e passar os dados para a blender list
-      **/
+     * Lista todos os clientes
+     */
     public function index()
-     {
-        $dados = Cliente::All();
-
+    {
+        $dados = Cliente::all();
         return view('cliente.list', ['dados' => $dados]);
     }
 
     /**
-    *função chama o formulario cliente
+     * Exibe o formulário de criação
      */
     public function create()
     {
-        return view('cliente.form');
+        return view('cliente.form', ['dado' => new Cliente()]);
     }
 
-    /** função valida as informações e verifica se há erros */
+    /**
+     * Validação centralizada
+     */
     private function validateRequest(Request $request)
     {
         $request->validate([
-            'nome' => 'required',
-            'cpf' => 'required',
+            'nome'     => 'required',
+            'cpf'      => 'required',
             'telefone' => 'required',
-            'renda' => 'required',
-
+            'renda'    => 'required',
         ], [
-            'nome.required' => 'O :attribute é obrigatório',
-            'cpf.required' => 'O :attribute é obrigatório',
-            'telefone.required' => 'O :atribute é obrigatório',
-            'renda.required' => 'O :atribute é obrigatório',
+            'nome.required'     => 'O :attribute é obrigatório',
+            'cpf.required'      => 'O :attribute é obrigatório',
+            'telefone.required' => 'O :attribute é obrigatório',
+            'renda.required'    => 'O :attribute é obrigatório',
         ]);
     }
+
     /**
-    *função que armezana as informações do formulario cliente
+     * Armazena o cliente criado
      */
     public function store(Request $request)
     {
         $this->validateRequest($request);
-        $data = $request->all();
 
-        Cliente::create($data);
+        Cliente::create($request->all());
 
         return redirect('cliente');
     }
 
     /**
-     * Display the specified resource.
+     * Exibe um cliente específico (opcional)
      */
     public function show(Cliente $cliente)
     {
-        //
+        return view('cliente.show', ['dado' => $cliente]);
     }
 
     /**
-   *  função edita e recebe o id, carrega os dados do cliente e passa os dados para o formulario
+     * Exibe formulário para editar
      */
-    public function edit($id)
+    public function edit(Cliente $cliente)
     {
-        // dd($dado);
-        $dado = Cliente::findOrFail($id);
-
-        return view(
-            'cliente.form',
-            [
-                'dado' => $dado,
-            ]
-        );
+        return view('cliente.form', ['dado' => $cliente]);
     }
 
     /**
-     *função que valida e atualiza os dados do formulario
+     * Atualiza o cliente existente
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Cliente $cliente)
     {
-        //dd($request->all());
         $this->validateRequest($request);
-        $data = $request->all();
 
-        Cliente::updateOrCreate(['id' => $id], $data);
+        $cliente->update($request->all());
 
         return redirect('cliente');
     }
 
     /**
-     *função que destroi os dados do formulario
+     * Remove o cliente
      */
-    public function destroy($id)
+    public function destroy(Cliente $cliente)
     {
-        $dado = Cliente::findOrFail($id);
-
-        $dado->delete();
-
+        $cliente->delete();
         return redirect('cliente');
     }
 
     /**
-   * função que pesquisa os dados de um formulario
+     * Pesquisa por clientes
      */
     public function search(Request $request)
     {
-        if (!empty($request->valor)) {
-            $dados = Cliente::where(
-                $request->tipo,
-                'like',
-                "%$request->valor%"
-            )->get();
-        } else {
-            $dados = Cliente::All();
+        $colunasPermitidas = ['nome', 'cpf', 'telefone', 'renda'];
+
+        if (!in_array($request->tipo, $colunasPermitidas)) {
+            return redirect('cliente')->with('erro', 'Campo de busca inválido.');
         }
 
-        return view('cliente.list', ["dados" => $dados]);
+        if (!empty($request->valor)) {
+            $dados = Cliente::where($request->tipo, 'like', "%{$request->valor}%")->get();
+        } else {
+            $dados = Cliente::all();
+        }
+
+        return view('cliente.list', ['dados' => $dados]);
     }
 }
